@@ -1,4 +1,6 @@
-﻿namespace RealEstateEFCoreProject.Models
+﻿using System.Collections.Generic;
+
+namespace RealEstateEFCoreProject.Models
 {
     public class BrokerModel
     {
@@ -12,6 +14,6 @@
                 return Name + " " + Surname;
             }
         }
-        public string CompanyName { get; set; }
+        public List<CompanyModel> Companies { get; set; }
     }
 }

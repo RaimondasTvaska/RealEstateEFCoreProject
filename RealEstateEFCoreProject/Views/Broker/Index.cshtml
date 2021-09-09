@@ -1,0 +1,13 @@
+﻿@model List<BrokerModel>
+
+
+<ul>
+    @foreach (var broker in Model)
+    {
+        <li>
+            @broker.FullName @Html.ActionLink("Edit", "Edit", "Broker", new { id = broker.Id })
+            @Html.ActionLink("Delete", "Delete", "Broker", new { id = broker.Id })
+        </li>
+
+    }
+</ul>
