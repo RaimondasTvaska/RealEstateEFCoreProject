@@ -12,7 +12,7 @@
         public int Area { get; set; }
         public int? Company_Id { get; set; }
         public int? Broker_Id { get; set; }
-        public string CompanyName { get; set; }
-        public string BrokerFullName { get; set; }
+        //public string CompanyName { get; set; }
+        //public string BrokerFullName { get; set; }
     }
 }

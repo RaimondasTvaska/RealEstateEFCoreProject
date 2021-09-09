@@ -30,5 +30,26 @@ namespace RealEstateEFCoreProject.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult Edit(int id)
+        {
+            var broker = _context.Brokers.FirstOrDefault(s => s.Id == id);
+
+            return View(broker);
+        }
+        [HttpPost]
+        public IActionResult Edit(BrokerModel broker)
+        {
+            _context.Brokers.Update(broker);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public IActionResult Delete(int id)
+        {
+            var broker = _context.Brokers.FirstOrDefault(s => s.Id == id);
+            _context.Remove(broker);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }

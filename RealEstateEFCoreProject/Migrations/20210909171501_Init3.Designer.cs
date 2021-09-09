@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RealEstateEFCoreProject.Data;
 
 namespace RealEstateEFCoreProject.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210909171501_Init3")]
+    partial class Init3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +31,9 @@ namespace RealEstateEFCoreProject.Migrations
                     b.Property<int>("Area")
                         .HasColumnType("int");
 
+                    b.Property<string>("BrokerFullName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("Broker_Id")
                         .HasColumnType("int");
 
@@ -36,6 +41,9 @@ namespace RealEstateEFCoreProject.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Company_Id")
@@ -83,6 +91,9 @@ namespace RealEstateEFCoreProject.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BrokerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -97,7 +108,18 @@ namespace RealEstateEFCoreProject.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BrokerId");
+
                     b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("RealEstateEFCoreProject.Models.CompanyModel", b =>
+                {
+                    b.HasOne("RealEstateEFCoreProject.Models.BrokerModel", "Broker")
+                        .WithMany()
+                        .HasForeignKey("BrokerId");
+
+                    b.Navigation("Broker");
                 });
 #pragma warning restore 612, 618
         }

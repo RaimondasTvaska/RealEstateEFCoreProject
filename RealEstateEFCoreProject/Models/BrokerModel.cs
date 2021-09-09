@@ -14,6 +14,7 @@ namespace RealEstateEFCoreProject.Models
                 return Name + " " + Surname;
             }
         }
-        public List<CompanyModel> Companies { get; set; }
+        //public List<CompanyModel> Companies { get; set; }
+        //public int[] CompanyId { get; set; }
     }
 }
