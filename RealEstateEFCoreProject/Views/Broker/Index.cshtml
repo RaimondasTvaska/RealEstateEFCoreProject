@@ -1,52 +1,52 @@
 ﻿@model IEnumerable<RealEstateEFCoreProject.Models.BrokerModel>
 
-@{
-    ViewData["Title"] = "Index";
-}
+    @{
+        ViewData["Title"] = "Index";
+    }
 
-<h1>Sąrašas</h1>
+    <h1>Sąrašas</h1>
 
-<p>
-    <a asp-action="Add">Naujas Brokeris</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Surname)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in @Model)
-        {
+    <p>
+        <a asp-action="Add">Naujas Brokeris</a>
+    </p>
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Surname)
-                </td>
-
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "Broker", new { id = $"{item.Id}" })  |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", "Broker", new { id = $"{item.Id}" })
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FullName)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.Surname)
+                </th>*@
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in @Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullName)
+                    </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.Surname)
+                    </td>*@
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Broker", new { id = $"{item.Id}" })  |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", "Broker", new { id = $"{item.Id}" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
 
 
@@ -58,13 +58,13 @@
 @*@model List<BrokerModel>
 
 
-    <ul>
-        @foreach (var broker in Model)
-        {
-            <li>
-                @broker.FullName @Html.ActionLink("Edit", "Edit", "Broker", new { id = broker.Id })
-                @Html.ActionLink("Delete", "Delete", "Broker", new { id = broker.Id })
-            </li>
+<ul>
+    @foreach (var broker in Model)
+    {
+        <li>
+            @broker.FullName @Html.ActionLink("Edit", "Edit", "Broker", new { id = broker.Id })
+            @Html.ActionLink("Delete", "Delete", "Broker", new { id = broker.Id })
+        </li>
 
-        }
-    </ul>*@
+    }
+</ul>*@
