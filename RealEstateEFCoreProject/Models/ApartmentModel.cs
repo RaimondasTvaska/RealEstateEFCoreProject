@@ -10,8 +10,8 @@
         public int FlatFloor { get; set; }
         public int BuildingFloors { get; set; }
         public int Area { get; set; }
-        public int? Company_Id { get; set; }
-        public int? Broker_Id { get; set; }
+        public CompanyModel Company { get; set; }
+        public int? BrokerId { get; set; }
         //public string CompanyName { get; set; }
         //public string BrokerFullName { get; set; }
     }

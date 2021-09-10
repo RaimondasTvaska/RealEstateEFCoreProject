@@ -12,16 +12,22 @@ namespace RealEstateEFCoreProject.Data
         {
 
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CompanyModel>()
+                .HasMany(c => c.Apartments)
+                .WithOne(e => e.Company);
+        }
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
-            
+
 
         //    modelBuilder.Entity<BrokerModel>()
         //        .HasMany(s => s.Companies)
         //        .WithOne(si => si.BrokerId)
         //        .HasForeignKey(si => si.CompanyId);
 
-            
+
 
         //}
 
