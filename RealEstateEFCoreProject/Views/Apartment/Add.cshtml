@@ -1,0 +1,30 @@
+﻿@model ApartmentModel
+
+@using (Html.BeginForm("Add", "Apartment", FormMethod.Post))
+{
+    @Html.LabelFor(s => s.City)
+    @Html.TextBoxFor(s => s.City)
+
+    @Html.LabelFor(s => s.Street)
+    @Html.TextBoxFor(s => s.Street)
+
+    @Html.LabelFor(s => s.HouseNo)
+    @Html.TextBoxFor(s => s.HouseNo)
+
+    @Html.LabelFor(s => s.FlatNo)
+    @Html.TextBoxFor(s => s.FlatNo)
+
+    @Html.LabelFor(s => s.FlatFloor)
+    @Html.TextBoxFor(s => s.FlatFloor)
+
+    @Html.LabelFor(s => s.BuildingFloors)
+    @Html.TextBoxFor(s => s.BuildingFloors)
+
+    @Html.LabelFor(s => s.Area)
+    @Html.TextBoxFor(s => s.Area)
+
+    @*@Html.LabelFor(s => s.Company)
+        @Html.DropDownListFor(x => x.Company, new SelectList(Model.Company, "Id", "CompanyName"), new { multiple = "multiple", @class = "form-control" })*@
+
+    <input type="submit" value="Submit" />
+}

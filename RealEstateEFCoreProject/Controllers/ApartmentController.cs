@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RealEstateEFCoreProject.Data;
-using System;
-using System.Collections.Generic;
+using RealEstateEFCoreProject.Models;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace RealEstateEFCoreProject.Controllers
 {
@@ -11,7 +9,7 @@ namespace RealEstateEFCoreProject.Controllers
     {
         private readonly DataContext _context;
 
-        public ApartmentController (DataContext context)
+        public ApartmentController(DataContext context)
         {
             _context = context;
         }
@@ -19,6 +17,19 @@ namespace RealEstateEFCoreProject.Controllers
         {
             var apartments = _context.Apartments.ToList();
             return View(apartments);
+        }
+        public IActionResult Add()
+        {
+            var apartment = new ApartmentModel();
+            return View(apartment);
+        }
+
+        [HttpPost]
+        public IActionResult Add(ApartmentModel apartment)
+        {
+            _context.Apartments.Add(apartment);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
