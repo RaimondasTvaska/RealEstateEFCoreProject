@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RealEstateEFCoreProject.Models
 {
@@ -10,10 +11,11 @@ namespace RealEstateEFCoreProject.Models
         public string Street { get; set; }
         public string HouseFlatNumber { get; set; }
         public List<ApartmentModel> Apartments { get; set; }
-        //List<int> Brokers { get; set; }
-        //public int? BrokerId { get; set; }
-        //public BrokerModel Broker { get; set; }
+        [NotMapped]
+        public List<BrokerModel> Brokers { get; set; }
+        [NotMapped]
+        public List<int> BrokerIds { get; set; }
 
-
+        public ICollection<CompanyBrokers> CompanyBrokers { get; set; }
     }
 }

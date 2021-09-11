@@ -20,13 +20,13 @@ namespace RealEstateEFCoreProject.Controllers
         }
         public IActionResult Add()
         {
-            var broker = new BrokerModel();
+            var broker = new BrokerCreate();
             return View(broker);
         }
         [HttpPost]
-        public IActionResult Add(BrokerModel broker)
+        public IActionResult Add(BrokerCreate brokerCreate)
         {
-            _context.Brokers.Add(broker);
+            _context.Brokers.Add(brokerCreate);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

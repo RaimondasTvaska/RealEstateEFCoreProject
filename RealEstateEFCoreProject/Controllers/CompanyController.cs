@@ -22,11 +22,13 @@ namespace RealEstateEFCoreProject.Controllers
         public IActionResult Add()
         {
             var company = new CompanyModel();
+            company.Brokers = _context.Brokers.ToList();
             return View(company);
         }
         [HttpPost]
         public IActionResult Add(CompanyModel company)
         {
+            company.Brokers = _context.Brokers.Where(b => company.BrokerIds.Contains(b.Id)).ToList();
             _context.Companies.Add(company);
             _context.SaveChanges();
             return RedirectToAction("Index");

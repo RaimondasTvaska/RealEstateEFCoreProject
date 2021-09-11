@@ -14,7 +14,7 @@
     @Html.LabelFor(s => s.HouseFlatNumber)
     @Html.TextBoxFor(s => s.HouseFlatNumber)
 
-    @*@Html.DropDownListFor(x => x.CompanyId, new MultiSelectList(Model.Companies, "Id", "CompanyName"), new { multiple = "multiple", @class = "form-control" })*@
-
+    @Html.LabelFor(x => x.Brokers)
+    @Html.ListBoxFor(x => x.BrokerIds, new MultiSelectList(Model.Brokers, "Id", "FullName"), new { multiple = "multiple", @class = "form-control" })
     <input type="submit" value="Submit" />
 }

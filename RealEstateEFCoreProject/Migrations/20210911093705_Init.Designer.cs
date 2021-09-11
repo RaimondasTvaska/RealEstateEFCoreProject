@@ -10,8 +10,8 @@ using RealEstateEFCoreProject.Data;
 namespace RealEstateEFCoreProject.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210909171501_Init3")]
-    partial class Init3
+    [Migration("20210911093705_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,21 @@ namespace RealEstateEFCoreProject.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("BrokerModelCompanyModel", b =>
+                {
+                    b.Property<int>("BrokersId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompaniesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BrokersId", "CompaniesId");
+
+                    b.HasIndex("CompaniesId");
+
+                    b.ToTable("BrokerModelCompanyModel");
+                });
 
             modelBuilder.Entity("RealEstateEFCoreProject.Models.ApartmentModel", b =>
                 {
@@ -31,10 +46,7 @@ namespace RealEstateEFCoreProject.Migrations
                     b.Property<int>("Area")
                         .HasColumnType("int");
 
-                    b.Property<string>("BrokerFullName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Broker_Id")
+                    b.Property<int?>("BrokerId")
                         .HasColumnType("int");
 
                     b.Property<int>("BuildingFloors")
@@ -43,10 +55,7 @@ namespace RealEstateEFCoreProject.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CompanyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Company_Id")
+                    b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<int>("FlatFloor")
@@ -62,6 +71,10 @@ namespace RealEstateEFCoreProject.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BrokerId");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Apartments");
                 });
@@ -84,15 +97,27 @@ namespace RealEstateEFCoreProject.Migrations
                     b.ToTable("Brokers");
                 });
 
+            modelBuilder.Entity("RealEstateEFCoreProject.Models.CompanyBrokers", b =>
+                {
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BrokerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CompanyId", "BrokerId");
+
+                    b.HasIndex("BrokerId");
+
+                    b.ToTable("CompanyBrokers");
+                });
+
             modelBuilder.Entity("RealEstateEFCoreProject.Models.CompanyModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("BrokerId")
-                        .HasColumnType("int");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -108,18 +133,70 @@ namespace RealEstateEFCoreProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BrokerId");
-
                     b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("BrokerModelCompanyModel", b =>
+                {
+                    b.HasOne("RealEstateEFCoreProject.Models.BrokerModel", null)
+                        .WithMany()
+                        .HasForeignKey("BrokersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RealEstateEFCoreProject.Models.CompanyModel", null)
+                        .WithMany()
+                        .HasForeignKey("CompaniesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RealEstateEFCoreProject.Models.ApartmentModel", b =>
+                {
+                    b.HasOne("RealEstateEFCoreProject.Models.BrokerModel", "Broker")
+                        .WithMany("Apartments")
+                        .HasForeignKey("BrokerId");
+
+                    b.HasOne("RealEstateEFCoreProject.Models.CompanyModel", "Company")
+                        .WithMany("Apartments")
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Broker");
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("RealEstateEFCoreProject.Models.CompanyBrokers", b =>
+                {
+                    b.HasOne("RealEstateEFCoreProject.Models.BrokerModel", "Broker")
+                        .WithMany("CompanyBrokers")
+                        .HasForeignKey("BrokerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RealEstateEFCoreProject.Models.CompanyModel", "Company")
+                        .WithMany("CompanyBrokers")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Broker");
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("RealEstateEFCoreProject.Models.BrokerModel", b =>
+                {
+                    b.Navigation("Apartments");
+
+                    b.Navigation("CompanyBrokers");
                 });
 
             modelBuilder.Entity("RealEstateEFCoreProject.Models.CompanyModel", b =>
                 {
-                    b.HasOne("RealEstateEFCoreProject.Models.BrokerModel", "Broker")
-                        .WithMany()
-                        .HasForeignKey("BrokerId");
+                    b.Navigation("Apartments");
 
-                    b.Navigation("Broker");
+                    b.Navigation("CompanyBrokers");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RealEstateEFCoreProject.Models
 {
@@ -7,6 +8,7 @@ namespace RealEstateEFCoreProject.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+        [NotMapped]
         public string FullName
         {
             get
@@ -14,7 +16,10 @@ namespace RealEstateEFCoreProject.Models
                 return Name + " " + Surname;
             }
         }
-        //public List<CompanyModel> Companies { get; set; }
-        //public int[] CompanyId { get; set; }
+        [NotMapped]
+        public List<CompanyModel> Companies { get; set; }
+
+        public List<ApartmentModel> Apartments { get; set; }
+        public ICollection<CompanyBrokers> CompanyBrokers { get; set; }
     }
 }

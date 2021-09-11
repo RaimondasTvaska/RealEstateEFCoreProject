@@ -11,7 +11,7 @@
         public int BuildingFloors { get; set; }
         public int Area { get; set; }
         public CompanyModel Company { get; set; }
-        public int? BrokerId { get; set; }
+        public BrokerModel Broker { get; set; }
         //public string CompanyName { get; set; }
         //public string BrokerFullName { get; set; }
     }
