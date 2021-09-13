@@ -1,4 +1,4 @@
-﻿@model BrokerModel
+﻿@model RealEstateEFCoreProject.Dtos.BrokerCreate
 
 @using (Html.BeginForm("Add", "Broker", FormMethod.Post))
 {
@@ -8,8 +8,8 @@
     @Html.LabelFor(s => s.Surname)
     @Html.TextBoxFor(s => s.Surname)
 
-    @Html.LabelFor(s => s.CompanyBrokers)
-    @Html.DropDownListFor(x => x.CompanyBrokers, new MultiSelectList(Model.CompanyBrokers, "Id", "CompanyName"), new { multiple = "multiple", @class = "form-control" })
+    @Html.LabelFor(s => s.Companies)
+    @Html.DropDownListFor(x => x.Companies, new MultiSelectList(Model.Companies, "Id", "CompanyName"), new { multiple = "multiple", @class = "form-control" })
 
     <input type="submit" value="Submit" />
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RealEstateEFCoreProject.Data;
+using RealEstateEFCoreProject.Dtos;
 using RealEstateEFCoreProject.Models;
 using System.Linq;
 
@@ -20,13 +21,22 @@ namespace RealEstateEFCoreProject.Controllers
         }
         public IActionResult Add()
         {
-            var broker = new BrokerCreate();
+            var broker = new BrokerCreate()
+            {
+                Companies = _context.Companies.ToList()
+            };
             return View(broker);
         }
         [HttpPost]
         public IActionResult Add(BrokerCreate brokerCreate)
         {
-            _context.Brokers.Add(brokerCreate);
+            var entity = new BrokerModel()
+            {
+                Name = brokerCreate.Name,
+                Surname = brokerCreate.Surname,
+                Companies = brokerCreate.Companies,
+            };
+            _context.Brokers.Add(entity);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

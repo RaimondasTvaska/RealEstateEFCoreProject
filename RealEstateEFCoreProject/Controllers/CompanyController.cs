@@ -28,7 +28,10 @@ namespace RealEstateEFCoreProject.Controllers
         [HttpPost]
         public IActionResult Add(CompanyModel company)
         {
-            company.Brokers = _context.Brokers.Where(b => company.BrokerIds.Contains(b.Id)).ToList();
+            if (company.BrokerIds != null)
+            {
+                company.Brokers = _context.Brokers.Where(b => company.BrokerIds.Contains(b.Id)).ToList();
+            }
             _context.Companies.Add(company);
             _context.SaveChanges();
             return RedirectToAction("Index");

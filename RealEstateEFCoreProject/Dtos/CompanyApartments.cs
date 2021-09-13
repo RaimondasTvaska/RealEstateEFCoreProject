@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using RealEstateEFCoreProject.Models;
+using System.Collections.Generic;
 
-namespace RealEstateEFCoreProject.Models
+namespace RealEstateEFCoreProject.Dtos
 {
     public class CompanyApartments
     {
