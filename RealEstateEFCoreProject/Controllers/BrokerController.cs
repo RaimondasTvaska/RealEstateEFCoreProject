@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RealEstateEFCoreProject.Data;
 using RealEstateEFCoreProject.Dtos;
 using RealEstateEFCoreProject.Models;
@@ -16,7 +17,11 @@ namespace RealEstateEFCoreProject.Controllers
         }
         public IActionResult Index()
         {
-            var brokers = _context.Brokers.ToList();
+            var brokers = _context.Brokers.Include(b => b.CompanyBrokers).ThenInclude(cb => cb.Company).ToList();
+            foreach (var broker in brokers)
+            {
+                broker.CompanyName = broker.CompanyBrokers.FirstOrDefault()?.Company?.CompanyName;
+            }
             return View(brokers);
         }
         public IActionResult Add()
@@ -30,14 +35,28 @@ namespace RealEstateEFCoreProject.Controllers
         [HttpPost]
         public IActionResult Add(BrokerCreate brokerCreate)
         {
-            var entity = new BrokerModel()
+            var broker = new BrokerModel()
             {
                 Name = brokerCreate.Name,
                 Surname = brokerCreate.Surname,
-                Companies = brokerCreate.Companies,
             };
-            _context.Brokers.Add(entity);
+            _context.Brokers.Add(broker);
             _context.SaveChanges();
+            foreach (var companyId in brokerCreate.CompanyIds)
+            {
+                var companyBroker = new CompanyBroker()
+                {
+                    BrokerId = broker.Id,
+                    CompanyId = companyId
+                };
+                _context.CompanyBrokers.Add(companyBroker);
+            }
+
+
+            _context.SaveChanges();
+
+
+
             return RedirectToAction("Index");
         }
         public IActionResult Edit(int id)

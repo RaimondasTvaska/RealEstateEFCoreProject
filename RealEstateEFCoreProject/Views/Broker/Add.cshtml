@@ -2,6 +2,7 @@
 
 @using (Html.BeginForm("Add", "Broker", FormMethod.Post))
 {
+
     @Html.LabelFor(s => s.Name)
     @Html.TextBoxFor(s => s.Name)
 
@@ -9,7 +10,7 @@
     @Html.TextBoxFor(s => s.Surname)
 
     @Html.LabelFor(s => s.Companies)
-    @Html.DropDownListFor(x => x.Companies, new MultiSelectList(Model.Companies, "Id", "CompanyName"), new { multiple = "multiple", @class = "form-control" })
+    @Html.ListBoxFor(x => x.CompanyIds, new MultiSelectList(Model.Companies, "Id", "CompanyName"), new { multiple = "multiple", @class = "form-control" })
 
     <input type="submit" value="Submit" />
 }

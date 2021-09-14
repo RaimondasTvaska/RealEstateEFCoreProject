@@ -1,6 +1,6 @@
 ﻿namespace RealEstateEFCoreProject.Models
 {
-    public class CompanyBrokers
+    public class CompanyBroker
     {
         public int CompanyId { get; set; }
         public CompanyModel Company { get; set; }

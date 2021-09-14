@@ -20,6 +20,8 @@ namespace RealEstateEFCoreProject.Models
         public List<CompanyModel> Companies { get; set; }
 
         public List<ApartmentModel> Apartments { get; set; }
-        public ICollection<CompanyBrokers> CompanyBrokers { get; set; }
+        public List<CompanyBroker> CompanyBrokers { get; set; }
+        [NotMapped]
+        public string CompanyName { get; set; }
     }
 }

@@ -18,9 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.FullName)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Companies)
-                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -34,9 +34,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.FullName)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Companies)
-                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
 
                 <td>
                     @Html.ActionLink("Edit", "Edit", "Broker", new { id = $"{item.Id}" })  |
