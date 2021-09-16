@@ -1,16 +1,34 @@
 ﻿@model RealEstateEFCoreProject.Dtos.BrokerCreate
 
+<h3>Edit Broker</h3>
+
 @using (Html.BeginForm("Edit", "Broker", FormMethod.Post))
 {
-    @Html.LabelFor(s => s.Name)
-    @Html.TextBoxFor(s => s.Name)
+    <div class="container-full" style="background-color:white">
+        <div class="container">
+            <div style="margin-top: 10px">
+                @Html.LabelFor(s => s.Broker.Name)
+                <div>
+                    @Html.TextBoxFor(s => s.Broker.Name)
+                </div>
+            </div>
+            <div style="margin-top: 10px">
+                @Html.LabelFor(s => s.Broker.Surname)
+                <div>
+                    @Html.TextBoxFor(s => s.Broker.Surname)
+                </div>
+                @Html.HiddenFor(s => s.Broker.Id)
+            </div>
+            <div style="margin-top: 10px">
+                @Html.LabelFor(s => s.Companies)
+                @Html.DropDownListFor(x => x.Companies, new MultiSelectList(Model.Companies, "Id", "CompanyName"), new { multiple = "multiple", @class = "form-control" });
+            </div>
+        <div  style="margin-top: 10px">
+            <button type ="submit" class="btn btn-light mt-auto mb-auto">Submit</button>
+        </div>
+        </div>
 
-    @Html.LabelFor(s => s.Surname)
-    @Html.TextBoxFor(s => s.Surname)
-
-    @Html.LabelFor(s => s.Companies)
-    @Html.DropDownListFor(x => x.Companies, new MultiSelectList(Model.Companies, "Id", "CompanyName"), new { multiple = "multiple", @class = "form-control" });
-
+    </div>
 
     <input type="submit" value="Submit" />
 }

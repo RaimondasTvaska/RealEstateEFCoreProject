@@ -3,11 +3,11 @@
 @using (Html.BeginForm("Add", "Broker", FormMethod.Post))
 {
 
-    @Html.LabelFor(s => s.Name)
-    @Html.TextBoxFor(s => s.Name)
+    @Html.LabelFor(s => s.Broker.Name)
+    @Html.TextBoxFor(s => s.Broker.Name)
 
-    @Html.LabelFor(s => s.Surname)
-    @Html.TextBoxFor(s => s.Surname)
+    @Html.LabelFor(s => s.Broker.Surname)
+    @Html.TextBoxFor(s => s.Broker.Surname)
 
     @Html.LabelFor(s => s.Companies)
     @Html.ListBoxFor(x => x.CompanyIds, new MultiSelectList(Model.Companies, "Id", "CompanyName"), new { multiple = "multiple", @class = "form-control" })

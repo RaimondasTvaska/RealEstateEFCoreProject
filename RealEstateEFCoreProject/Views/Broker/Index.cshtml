@@ -35,7 +35,16 @@
                     @Html.DisplayFor(modelItem => item.FullName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CompanyName)
+                    @*@Html.DisplayFor(modelItem => item.CompanyBrokers)*@
+                    @foreach (var itemInner in item.CompanyBrokers)
+                    {
+                        
+                        @itemInner.Company.CompanyName
+
+                        String.Join(", ");
+
+                    }
+
                 </td>
 
                 <td>

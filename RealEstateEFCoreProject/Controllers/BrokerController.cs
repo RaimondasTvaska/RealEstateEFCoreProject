@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RealEstateEFCoreProject.Data;
 using RealEstateEFCoreProject.Dtos;
 using RealEstateEFCoreProject.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RealEstateEFCoreProject.Controllers
@@ -37,8 +38,43 @@ namespace RealEstateEFCoreProject.Controllers
         {
             var broker = new BrokerModel()
             {
-                Name = brokerCreate.Name,
-                Surname = brokerCreate.Surname,
+                Name = brokerCreate.Broker.Name,
+                Surname = brokerCreate.Broker.Surname,
+            };
+            _context.Brokers.Add(broker);
+            //_context.SaveChanges();
+
+            var companyBroker = new List<CompanyBroker>();
+            foreach (var companyId in brokerCreate.CompanyIds)
+            {
+                _context.CompanyBrokers.Add(new CompanyBroker()
+                {
+                    Broker = broker,
+                    CompanyId = companyId
+                });
+            }
+
+            _context.SaveChanges();
+
+
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult Edit(int id)
+        {
+            var brokerCreateDto = new BrokerCreate();
+            brokerCreateDto.Broker = _context.Brokers.FirstOrDefault(s => s.Id == id);
+            brokerCreateDto.Companies = _context.Companies.ToList();
+
+            return View(brokerCreateDto);
+        }
+        [HttpPost]
+        public IActionResult Edit(BrokerCreate brokerCreate)
+        {
+            var broker = new BrokerModel()
+            {
+                Name = brokerCreate.Broker.Name,
+                Surname = brokerCreate.Broker.Surname,
             };
             _context.Brokers.Add(broker);
             _context.SaveChanges();
@@ -51,23 +87,7 @@ namespace RealEstateEFCoreProject.Controllers
                 };
                 _context.CompanyBrokers.Add(companyBroker);
             }
-
-
             _context.SaveChanges();
-
-
-
-            return RedirectToAction("Index");
-        }
-        public IActionResult Edit(int id)
-        {
-            var broker = _context.Brokers.FirstOrDefault(s => s.Id == id);
-
-            return View(broker);
-        }
-        [HttpPost]
-        public IActionResult Edit(BrokerModel broker)
-        {
             _context.Brokers.Update(broker);
             _context.SaveChanges();
             return RedirectToAction("Index");
