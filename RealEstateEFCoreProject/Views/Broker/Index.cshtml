@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RealEstateEFCoreProject.Models.BrokerModel>
+﻿@model IEnumerable<RealEstateEFCoreProject.Dtos.BrokerIndexDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,13 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.Broker.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FullName)
+                @Html.DisplayNameFor(model => model.Broker.FullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CompanyName)
+                @Html.DisplayNameFor(model => model.CompanyNames)
             </th>
             <th></th>
         </tr>
@@ -29,28 +29,20 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @Html.DisplayFor(modelItem => item.Broker.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FullName)
+                    @Html.DisplayFor(modelItem => item.Broker.FullName)
                 </td>
                 <td>
-                    @*@Html.DisplayFor(modelItem => item.CompanyBrokers)*@
-                    @foreach (var itemInner in item.CompanyBrokers)
-                    {
-                        
-                        @itemInner.Company.CompanyName
-
-                        String.Join(", ");
-
-                    }
+                    @Html.DisplayFor(modelItem => item.CompanyNames)
 
                 </td>
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", "Broker", new { id = $"{item.Id}" })  |
+                    @Html.ActionLink("Edit", "Edit", "Broker", new { id = $"{item.Broker.Id}" })  |
                     @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", "Broker", new { id = $"{item.Id}" })
+                    @Html.ActionLink("Delete", "Delete", "Broker", new { id = $"{item.Broker.Id}" })
                 </td>
             </tr>
         }

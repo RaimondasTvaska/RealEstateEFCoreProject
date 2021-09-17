@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RealEstateEFCoreProject.Data;
 using RealEstateEFCoreProject.Dtos;
 using RealEstateEFCoreProject.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,12 +19,19 @@ namespace RealEstateEFCoreProject.Controllers
         }
         public IActionResult Index()
         {
-            var brokers = _context.Brokers.Include(b => b.CompanyBrokers).ThenInclude(cb => cb.Company).ToList();
+            var brokerIndex = new List<BrokerIndexDto>();
+            var brokers = _context.Brokers.Include(b => b.CompanyBrokers).ThenInclude(c => c.Company).ToList();
             foreach (var broker in brokers)
             {
-                broker.CompanyName = broker.CompanyBrokers.FirstOrDefault()?.Company?.CompanyName;
+                var companyName = broker.CompanyBrokers.Select(c => c.Company).Select(c => c.CompanyName);
+                brokerIndex.Add(new BrokerIndexDto()
+                {
+                    Broker = broker,
+                    CompanyNames = String.Join(", ", companyName)
+                });
+                //broker.CompanyName = broker.CompanyBrokers.FirstOrDefault()?.Company?.CompanyName;
             }
-            return View(brokers);
+            return View(brokerIndex);
         }
         public IActionResult Add()
         {
@@ -42,7 +50,7 @@ namespace RealEstateEFCoreProject.Controllers
                 Surname = brokerCreate.Broker.Surname,
             };
             _context.Brokers.Add(broker);
-            //_context.SaveChanges();
+            _context.SaveChanges();
 
             var companyBroker = new List<CompanyBroker>();
             foreach (var companyId in brokerCreate.CompanyIds)
@@ -55,18 +63,15 @@ namespace RealEstateEFCoreProject.Controllers
             }
 
             _context.SaveChanges();
-
-
-
             return RedirectToAction("Index");
         }
         public IActionResult Edit(int id)
         {
-            var brokerCreateDto = new BrokerCreate();
-            brokerCreateDto.Broker = _context.Brokers.FirstOrDefault(s => s.Id == id);
-            brokerCreateDto.Companies = _context.Companies.ToList();
+            var brokerCreate = new BrokerCreate();
+            brokerCreate.Broker = _context.Brokers.FirstOrDefault(s => s.Id == id);
+            brokerCreate.Companies = _context.Companies.ToList();
 
-            return View(brokerCreateDto);
+            return View(brokerCreate);
         }
         [HttpPost]
         public IActionResult Edit(BrokerCreate brokerCreate)

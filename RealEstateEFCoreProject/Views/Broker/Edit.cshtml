@@ -23,12 +23,12 @@
                 @Html.LabelFor(s => s.Companies)
                 @Html.DropDownListFor(x => x.Companies, new MultiSelectList(Model.Companies, "Id", "CompanyName"), new { multiple = "multiple", @class = "form-control" });
             </div>
-        <div  style="margin-top: 10px">
-            <button type ="submit" class="btn btn-light mt-auto mb-auto">Submit</button>
-        </div>
+            <div style="margin-top: 10px">
+                <button type="submit" class="btn btn-light mt-auto mb-auto">Submit</button>
+            </div>
         </div>
 
     </div>
 
-    <input type="submit" value="Submit" />
+
 }
