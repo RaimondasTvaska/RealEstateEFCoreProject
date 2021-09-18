@@ -36,6 +36,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Area)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Company)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Broker)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -59,13 +65,19 @@
                     @Html.DisplayFor(modelItem => item.FlatNo)
                 </td>
                 <th>
-                    @Html.DisplayNameFor(model => model.FlatFloor)
+                    @Html.DisplayFor(modelItem => item.FlatFloor)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.BuildingFloors)
+                    @Html.DisplayFor(modelItem => item.BuildingFloors)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Area)
+                    @Html.DisplayFor(modelItem => item.Area)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Company)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Broker)
                 </th>
 
                 <td>

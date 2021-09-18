@@ -29,7 +29,6 @@ namespace RealEstateEFCoreProject.Controllers
                     Broker = broker,
                     CompanyNames = String.Join(", ", companyName)
                 });
-                //broker.CompanyName = broker.CompanyBrokers.FirstOrDefault()?.Company?.CompanyName;
             }
             return View(brokerIndex);
         }
@@ -50,16 +49,19 @@ namespace RealEstateEFCoreProject.Controllers
                 Surname = brokerCreate.Broker.Surname,
             };
             _context.Brokers.Add(broker);
-            _context.SaveChanges();
 
             var companyBroker = new List<CompanyBroker>();
-            foreach (var companyId in brokerCreate.CompanyIds)
+            if (brokerCreate.CompanyIds != null)
             {
-                _context.CompanyBrokers.Add(new CompanyBroker()
+                foreach (var companyId in brokerCreate.CompanyIds)
                 {
-                    Broker = broker,
-                    CompanyId = companyId
-                });
+                    _context.CompanyBrokers.Add(new CompanyBroker()
+                    {
+                        Broker = broker,
+                        CompanyId = companyId
+                    });
+                }
+
             }
 
             _context.SaveChanges();
@@ -76,24 +78,21 @@ namespace RealEstateEFCoreProject.Controllers
         [HttpPost]
         public IActionResult Edit(BrokerCreate brokerCreate)
         {
-            var broker = new BrokerModel()
+            var tmpRng = _context.CompanyBrokers.Where(b => b.BrokerId == brokerCreate.Broker.Id);
+            _context.CompanyBrokers.RemoveRange(tmpRng);
+            if (brokerCreate.CompanyIds != null)
             {
-                Name = brokerCreate.Broker.Name,
-                Surname = brokerCreate.Broker.Surname,
-            };
-            _context.Brokers.Add(broker);
-            _context.SaveChanges();
-            foreach (var companyId in brokerCreate.CompanyIds)
-            {
-                var companyBroker = new CompanyBroker()
+                foreach (var companyId in brokerCreate.CompanyIds)
                 {
-                    BrokerId = broker.Id,
-                    CompanyId = companyId
-                };
-                _context.CompanyBrokers.Add(companyBroker);
+                    var companyBroker = new CompanyBroker()
+                    {
+                        Broker = brokerCreate.Broker,
+                        CompanyId = companyId
+                    };
+                    _context.CompanyBrokers.Add(companyBroker);
+                }
             }
-            _context.SaveChanges();
-            _context.Brokers.Update(broker);
+            _context.Brokers.Update(brokerCreate.Broker);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

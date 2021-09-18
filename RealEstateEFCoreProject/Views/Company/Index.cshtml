@@ -36,32 +36,32 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompanyName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Street)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HouseFlatNumber)
-            </td>
-            @*<td>
-                @Html.(modelItem => item.BrokerIds)
-            </td>*@
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HouseFlatNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BrokerIds)
+                </td>
 
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = $"{item.Id}" }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { id = $"{item.Id}" })
-            </td>
-        </tr>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = $"{item.Id}" }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = $"{item.Id}" })
+                </td>
+            </tr>
         }
     </tbody>
 </table>

@@ -49,7 +49,7 @@ namespace RealEstateEFCoreProject.Migrations
                     FlatFloor = table.Column<int>(type: "int", nullable: false),
                     BuildingFloors = table.Column<int>(type: "int", nullable: false),
                     Area = table.Column<int>(type: "int", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: true),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     BrokerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

@@ -16,6 +16,6 @@ namespace RealEstateEFCoreProject.Models
         [NotMapped]
         public List<int> BrokerIds { get; set; }
 
-        public ICollection<CompanyBroker> CompanyBrokers { get; set; }
+        public List<CompanyBroker> CompanyBrokers { get; set; }
     }
 }
